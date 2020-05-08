@@ -28,3 +28,15 @@ Dynamic_Int_Array_Ptr map(Dynamic_Int_Array_Ptr numbers, Mapper mapper)
 
   return mapped_array;
 }
+
+int reduce(Dynamic_Int_Array_Ptr numbers, int initial_context, Reducer reducer)
+{
+  int context = initial_context;
+
+  for (unsigned index = 0; index < numbers->length; index++)
+  {
+    context = (*reducer)(context, numbers->values[index]);
+  }
+
+  return context;
+}

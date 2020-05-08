@@ -2,9 +2,14 @@
 #include <assert.h>
 #include "../array_functions.h"
 
-int increment(int a)
+int increment(int number)
 {
-  return a + 1;
+  return number + 1;
+}
+
+int add(int number1, int number2)
+{
+  return number1 + number2;
 }
 
 void test_copy_to_dynamic_array(void)
@@ -40,10 +45,21 @@ void test_map(void)
   printf("\t\t--passed\n\n");
 }
 
+void test_reduce(void)
+{
+  printf("\n\nTesting reduce\n\n");
+
+  printf("\tShould reduce the array according to the given reducer\n");
+  int numbers[] = {1, 2};
+  assert(reduce(copy_to_dynamic_array(numbers, 2), 0, &add) == 3);
+  printf("\t\t--passed\n\n");
+}
+
 int main(void)
 {
   test_copy_to_dynamic_array();
   test_map();
+  test_reduce();
 
   return 0;
 }
