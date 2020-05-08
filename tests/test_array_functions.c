@@ -12,6 +12,11 @@ int add(int number1, int number2)
   return number1 + number2;
 }
 
+Bool is_even(int number)
+{
+  return !(number % 2);
+}
+
 void test_copy_to_dynamic_array(void)
 {
   printf("\n\nTesting copy_to_dynamic_array\n\n");
@@ -22,13 +27,6 @@ void test_copy_to_dynamic_array(void)
   assert(target1->values[0] == 1);
   assert(target1->values[1] == 2);
   assert(target1->length == 2);
-  printf("\t\t--passed\n\n");
-
-  printf("\tShould work for empty arrat also\n");
-  int source2[] = {};
-  Dynamic_Int_Array_Ptr target2 = copy_to_dynamic_array(source2, 0);
-  assert(target2->values == NULL);
-  assert(target2->length == 0);
   printf("\t\t--passed\n\n");
 }
 
@@ -42,6 +40,24 @@ void test_map(void)
   assert(mapped_numbers->values[0] == 2);
   assert(mapped_numbers->values[1] == 3);
   assert(mapped_numbers->length == 2);
+  printf("\t\t--passed\n\n");
+}
+
+void test_filter(void)
+{
+  printf("\n\nTesting filter\n\n");
+
+  printf("\tShould filter the array according to the given predicate\n");
+  int numbers[] = {-1, 2, 3};
+  Dynamic_Int_Array_Ptr filtered_numbers = filter(copy_to_dynamic_array(numbers, 3), &is_even);
+  assert(filtered_numbers->length == 1);
+  assert(filtered_numbers->values[0] == 2);
+  printf("\t\t--passed\n\n");
+
+  printf("\tShould return empty array if no element passes the predicate\n");
+  int numbers1[] = {-1, 3};
+  Dynamic_Int_Array_Ptr filtered_numbers1 = filter(copy_to_dynamic_array(numbers1, 2), &is_even);
+  assert(filtered_numbers1->length == 0);
   printf("\t\t--passed\n\n");
 }
 
@@ -60,6 +76,7 @@ int main(void)
   test_copy_to_dynamic_array();
   test_map();
   test_reduce();
+  test_filter();
 
   return 0;
 }
