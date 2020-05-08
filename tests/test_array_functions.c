@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-#include "../array_functions.h"
+#include "../array.h"
 
 int increment(int number)
 {
@@ -23,9 +23,9 @@ void test_copy_to_dynamic_array(void)
 
   printf("\tShould copy the whole int array to a dynamic array and give it back\n");
   int source1[] = {1, 2};
-  Dynamic_Int_Array_Ptr target1 = copy_to_dynamic_array(source1, 2);
-  assert(target1->values[0] == 1);
-  assert(target1->values[1] == 2);
+  Array_Ptr target1 = copy_to_dynamic_array(source1, 2);
+  assert(target1->array[0] == 1);
+  assert(target1->array[1] == 2);
   assert(target1->length == 2);
   printf("\t\t--passed\n\n");
 }
@@ -36,9 +36,9 @@ void test_map(void)
 
   printf("\tShould map the array according to the given mapper\n");
   int numbers[] = {1, 2};
-  Dynamic_Int_Array_Ptr mapped_numbers = map(copy_to_dynamic_array(numbers, 2), &increment);
-  assert(mapped_numbers->values[0] == 2);
-  assert(mapped_numbers->values[1] == 3);
+  Array_Ptr mapped_numbers = map(copy_to_dynamic_array(numbers, 2), &increment);
+  assert(mapped_numbers->array[0] == 2);
+  assert(mapped_numbers->array[1] == 3);
   assert(mapped_numbers->length == 2);
   printf("\t\t--passed\n\n");
 }
@@ -49,14 +49,14 @@ void test_filter(void)
 
   printf("\tShould filter the array according to the given predicate\n");
   int numbers[] = {-1, 2, 3};
-  Dynamic_Int_Array_Ptr filtered_numbers = filter(copy_to_dynamic_array(numbers, 3), &is_even);
+  Array_Ptr filtered_numbers = filter(copy_to_dynamic_array(numbers, 3), &is_even);
   assert(filtered_numbers->length == 1);
-  assert(filtered_numbers->values[0] == 2);
+  assert(filtered_numbers->array[0] == 2);
   printf("\t\t--passed\n\n");
 
   printf("\tShould return empty array if no element passes the predicate\n");
   int numbers1[] = {-1, 3};
-  Dynamic_Int_Array_Ptr filtered_numbers1 = filter(copy_to_dynamic_array(numbers1, 2), &is_even);
+  Array_Ptr filtered_numbers1 = filter(copy_to_dynamic_array(numbers1, 2), &is_even);
   assert(filtered_numbers1->length == 0);
   printf("\t\t--passed\n\n");
 }
