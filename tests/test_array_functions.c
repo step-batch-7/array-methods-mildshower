@@ -2,6 +2,11 @@
 #include <assert.h>
 #include "../array_functions.h"
 
+int increment(int a)
+{
+  return a + 1;
+}
+
 void test_copy_to_dynamic_array(void)
 {
   printf("\n\nTesting copy_to_dynamic_array\n\n");
@@ -22,9 +27,23 @@ void test_copy_to_dynamic_array(void)
   printf("\t\t--passed\n\n");
 }
 
+void test_map(void)
+{
+  printf("\n\nTesting map\n\n");
+
+  printf("\tShould map the array according to the given mapper\n");
+  int numbers[] = {1, 2};
+  Dynamic_Int_Array_Ptr mapped_numbers = map(copy_to_dynamic_array(numbers, 2), &increment);
+  assert(mapped_numbers->values[0] == 2);
+  assert(mapped_numbers->values[1] == 3);
+  assert(mapped_numbers->length == 2);
+  printf("\t\t--passed\n\n");
+}
+
 int main(void)
 {
   test_copy_to_dynamic_array();
+  test_map();
 
   return 0;
 }

@@ -11,6 +11,10 @@ typedef struct
 
 typedef Dynamic_Int_Array *Dynamic_Int_Array_Ptr;
 
+typedef int (*Mapper)(int);
+
 Dynamic_Int_Array_Ptr copy_to_dynamic_array(int source_array[], unsigned length);
+
+Dynamic_Int_Array_Ptr map(Dynamic_Int_Array_Ptr numbers, Mapper mapper);
 
 #endif
