@@ -15,29 +15,34 @@ Bool is_int_even(Object number)
   return !(*(int *)number % 2);
 }
 
+void test_create_int_object_array(void)
+{
+  printf("\n\nTesting create_int_object_array\n\n");
+
+  printf("\tShould crete an Object Array(array of void pointers) from int array\n");
+  int src[] = {1, 2};
+  ArrayVoid_ptr object_array = create_int_object_array(src, 2);
+  assert(*(int *)object_array->array[0] == 1);
+  assert(*(int *)object_array->array[1] == 2);
+  assert(object_array->length == 2);
+  printf("\t\t--passed\n\n");
+}
+
 void test_map_void(void)
 {
   printf("\n\nTesting map_void\n\n");
 
   printf("\tShould map the array with element\n");
-  ArrayVoid_ptr src1 = malloc(sizeof(ArrayVoid));
-  src1->array = malloc(sizeof(Object) * 2);
-  src1->length = 2;
-  src1->array[0] = malloc(sizeof(int));
-  src1->array[1] = malloc(sizeof(int));
-  *(int *)(src1->array[0]) = 1;
-  *(int *)(src1->array[1]) = 2;
-  ArrayVoid_ptr mapped_array1 = map_void(src1, &int_increment);
+  int src1[] = {1, 2};
+  ArrayVoid_ptr mapped_array1 = map_void(create_int_object_array(src1, 2), &int_increment);
   assert(*(int *)mapped_array1->array[0] == 2);
   assert(*(int *)mapped_array1->array[1] == 3);
   assert(mapped_array1->length == 2);
   printf("\t\t--passed\n\n");
 
   printf("\tShould map empty array\n");
-  ArrayVoid_ptr src2 = malloc(sizeof(ArrayVoid));
-  src2->array = malloc(sizeof(Object) * 0);
-  src2->length = 0;
-  ArrayVoid_ptr mapped_array2 = map_void(src2, &int_increment);
+  int src2[] = {};
+  ArrayVoid_ptr mapped_array2 = map_void(create_int_object_array(src2, 0), &int_increment);
   assert(mapped_array2->length == 0);
   printf("\t\t--passed\n\n");
 }
@@ -47,23 +52,15 @@ void test_filter_void(void)
   printf("\n\nTesting filter_void\n\n");
 
   printf("\tShould filter the array with element\n");
-  ArrayVoid_ptr src1 = malloc(sizeof(ArrayVoid));
-  src1->array = malloc(sizeof(Object) * 2);
-  src1->length = 2;
-  src1->array[0] = malloc(sizeof(int));
-  src1->array[1] = malloc(sizeof(int));
-  *(int *)(src1->array[0]) = 1;
-  *(int *)(src1->array[1]) = 2;
-  ArrayVoid_ptr filtered_array1 = filter_void(src1, &is_int_even);
+  int src1[] = {1, 2};
+  ArrayVoid_ptr filtered_array1 = filter_void(create_int_object_array(src1, 2), &is_int_even);
   assert(filtered_array1->length == 1);
   assert(*(int *)filtered_array1->array[0] == 2);
   printf("\t\t--passed\n\n");
 
   printf("\tShould map empty array\n");
-  ArrayVoid_ptr src2 = malloc(sizeof(ArrayVoid));
-  src2->array = malloc(sizeof(Object) * 0);
-  src2->length = 0;
-  ArrayVoid_ptr filtered_array2 = filter_void(src2, &is_int_even);
+  int src2[] = {};
+  ArrayVoid_ptr filtered_array2 = filter_void(create_int_object_array(src2, 0), &is_int_even);
   assert(filtered_array2->length == 0);
   printf("\t\t--passed\n\n");
 }

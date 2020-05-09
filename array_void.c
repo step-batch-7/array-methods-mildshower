@@ -1,6 +1,21 @@
 #include <stdlib.h>
 #include "array_void.h"
 
+ArrayVoid_ptr create_int_object_array(int *src, unsigned length)
+{
+  ArrayVoid_ptr object_array = malloc(sizeof(ArrayVoid));
+  object_array->array = malloc(sizeof(Object) * length);
+  object_array->length = length;
+
+  for (unsigned index = 0; index < length; index++)
+  {
+    object_array->array[index] = malloc(sizeof(int));
+    *(int *)object_array->array[index] = src[index];
+  }
+
+  return object_array;
+}
+
 ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper)
 {
   ArrayVoid_ptr mapped_array = malloc(sizeof(ArrayVoid));

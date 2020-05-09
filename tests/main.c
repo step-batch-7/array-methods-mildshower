@@ -7,6 +7,7 @@ int main(void)
   test_map();
   test_reduce();
   test_filter();
+  test_create_int_object_array();
   test_map_void();
   test_filter_void();
 
