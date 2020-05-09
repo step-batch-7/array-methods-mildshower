@@ -14,3 +14,22 @@ ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper)
 
   return mapped_array;
 }
+
+ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
+{
+  ArrayVoid_ptr filtered_array = malloc(sizeof(ArrayVoid));
+  filtered_array->array = malloc(sizeof(Object) * src->length);
+  filtered_array->length = 0;
+
+  for (unsigned index = 0; index < src->length; index++)
+  {
+    if ((*predicate)(src->array[index]))
+    {
+      filtered_array->array[filtered_array->length] = src->array[index];
+      filtered_array->length++;
+    }
+  }
+
+  filtered_array->array = realloc(filtered_array->array, sizeof(Object) * filtered_array->length);
+  return filtered_array;
+}

@@ -10,6 +10,11 @@ Object int_increment(Object number)
   return incremented_value;
 }
 
+Bool is_int_even(Object number)
+{
+  return !(*(int *)number % 2);
+}
+
 void test_map_void(void)
 {
   printf("\n\nTesting map_void\n\n");
@@ -34,5 +39,31 @@ void test_map_void(void)
   src2->length = 0;
   ArrayVoid_ptr mapped_array2 = map_void(src2, &int_increment);
   assert(mapped_array2->length == 0);
+  printf("\t\t--passed\n\n");
+}
+
+void test_filter_void(void)
+{
+  printf("\n\nTesting filter_void\n\n");
+
+  printf("\tShould filter the array with element\n");
+  ArrayVoid_ptr src1 = malloc(sizeof(ArrayVoid));
+  src1->array = malloc(sizeof(Object) * 2);
+  src1->length = 2;
+  src1->array[0] = malloc(sizeof(int));
+  src1->array[1] = malloc(sizeof(int));
+  *(int *)(src1->array[0]) = 1;
+  *(int *)(src1->array[1]) = 2;
+  ArrayVoid_ptr filtered_array1 = filter_void(src1, &is_int_even);
+  assert(filtered_array1->length == 1);
+  assert(*(int *)filtered_array1->array[0] == 2);
+  printf("\t\t--passed\n\n");
+
+  printf("\tShould map empty array\n");
+  ArrayVoid_ptr src2 = malloc(sizeof(ArrayVoid));
+  src2->array = malloc(sizeof(Object) * 0);
+  src2->length = 0;
+  ArrayVoid_ptr filtered_array2 = filter_void(src2, &is_int_even);
+  assert(filtered_array2->length == 0);
   printf("\t\t--passed\n\n");
 }

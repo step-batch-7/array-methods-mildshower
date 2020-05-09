@@ -8,6 +8,7 @@ int main(void)
   test_reduce();
   test_filter();
   test_map_void();
+  test_filter_void();
 
   return 0;
 }
