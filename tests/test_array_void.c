@@ -15,6 +15,13 @@ Bool is_int_even(Object number)
   return !(*(int *)number % 2);
 }
 
+Object add_int_objects(Object number1, Object number2)
+{
+  Object result = malloc(sizeof(int));
+  *(int *)result = *(int *)number1 + *(int *)number2;
+  return result;
+}
+
 void test_create_int_object_array(void)
 {
   printf("\n\nTesting create_int_object_array\n\n");
@@ -62,5 +69,23 @@ void test_filter_void(void)
   int src2[] = {};
   ArrayVoid_ptr filtered_array2 = filter_void(create_int_object_array(src2, 0), &is_int_even);
   assert(filtered_array2->length == 0);
+  printf("\t\t--passed\n\n");
+}
+
+void test_reduce_void(void)
+{
+  printf("\n\nTesting reduce_void\n\n");
+
+  Object init = malloc(sizeof(int));
+  *(int *)init = 0;
+
+  printf("\tShould add all numbers in the int object array\n");
+  int src1[] = {1, 2};
+  assert(*(int *)reduce_void(create_int_object_array(src1, 2), init, &add_int_objects) == 3);
+  printf("\t\t--passed\n\n");
+
+  printf("\tShould give 0 as the array is empty\n");
+  int src2[] = {};
+  assert(*(int *)reduce_void(create_int_object_array(src2, 0), init, &add_int_objects) == 0);
   printf("\t\t--passed\n\n");
 }

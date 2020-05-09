@@ -48,9 +48,9 @@ Array_Ptr filter(Array_Ptr src, Predicate predicate)
   return filtered_numbers;
 }
 
-int reduce(Array_Ptr src, int initial_context, Reducer reducer)
+int reduce(Array_Ptr src, int init, Reducer reducer)
 {
-  int context = initial_context;
+  int context = init;
 
   for (unsigned index = 0; index < src->length; index++)
   {

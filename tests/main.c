@@ -10,6 +10,7 @@ int main(void)
   test_create_int_object_array();
   test_map_void();
   test_filter_void();
+  test_reduce_void();
 
   return 0;
 }

@@ -48,3 +48,15 @@ ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
   filtered_array->array = realloc(filtered_array->array, sizeof(Object) * filtered_array->length);
   return filtered_array;
 }
+
+Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer)
+{
+  Object context = init;
+
+  for (unsigned index = 0; index < src->length; index++)
+  {
+    context = (*reducer)(context, src->array[index]);
+  }
+
+  return context;
+}
