@@ -8,9 +8,11 @@ typedef Object (*MapperVoid)(Object);
 typedef Bool (*PredicateVoid)(Object);
 typedef Object (*ReducerVoid)(Object, Object);
 
+typedef Object *Object_ptr;
+
 typedef struct
 {
-  Object *array;
+  Object_ptr array;
   int length;
 } ArrayVoid;
 
