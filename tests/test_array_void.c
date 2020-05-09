@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include "../array_void.h"
+
+Object int_increment(Object number)
+{
+  Object incremented_value = malloc(sizeof(int));
+  *(int *)incremented_value = *(int *)number + 1;
+  return incremented_value;
+}
+
+void test_map_void(void)
+{
+  printf("\n\nTesting map_void\n\n");
+
+  printf("\tShould map the array with element\n");
+  ArrayVoid_ptr src1 = malloc(sizeof(ArrayVoid));
+  src1->array = malloc(sizeof(Object) * 2);
+  src1->length = 2;
+  src1->array[0] = malloc(sizeof(int));
+  src1->array[1] = malloc(sizeof(int));
+  *(int *)(src1->array[0]) = 1;
+  *(int *)(src1->array[1]) = 2;
+  ArrayVoid_ptr mapped_array1 = map_void(src1, &int_increment);
+  assert(*(int *)mapped_array1->array[0] == 2);
+  assert(*(int *)mapped_array1->array[1] == 3);
+  assert(mapped_array1->length == 2);
+  printf("\t\t--passed\n\n");
+
+  printf("\tShould map empty array\n");
+  ArrayVoid_ptr src2 = malloc(sizeof(ArrayVoid));
+  src2->array = malloc(sizeof(Object) * 0);
+  src2->length = 0;
+  ArrayVoid_ptr mapped_array2 = map_void(src2, &int_increment);
+  assert(mapped_array2->length == 0);
+  printf("\t\t--passed\n\n");
+}

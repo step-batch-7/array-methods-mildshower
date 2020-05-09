@@ -70,13 +70,3 @@ void test_reduce(void)
   assert(reduce(copy_to_dynamic_array(numbers, 2), 0, &add) == 3);
   printf("\t\t--passed\n\n");
 }
-
-int main(void)
-{
-  test_copy_to_dynamic_array();
-  test_map();
-  test_reduce();
-  test_filter();
-
-  return 0;
-}

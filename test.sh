@@ -6,7 +6,7 @@ if [[ ! -d bin ]]; then
   mkdir bin;
 fi
 
- gcc -c tests/*.c array.c
+ gcc -c tests/main.c array.c array_void.c
  gcc -o bin/test.out *.o
  rm -rf *.o
  ./bin/test.out
